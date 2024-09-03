@@ -1,16 +1,18 @@
-VPATH = src
+vpath %.c src
+vpath %.l src
+vpath %.h include
 CFLAGS = -Iinclude
 
 count_words: count_words.o counter.o lexer.o -lfl
 	gcc $(CFLAGS) $^ -lfl -o $@
 
-count_words.o: count_words.c include/counter.h
+count_words.o: count_words.c counter.h
 	gcc $(CFLAGS) -c $<
 
-counter.o: counter.c include/counter.h include/lexer.h
+counter.o: counter.c counter.h lexer.h
 	gcc $(CFLAGS) -c $<
 
-lexer.o: lexer.c include/lexer.h
+lexer.o: lexer.c lexer.h
 	gcc $(CFLAGS) -c $<
 
 lexer.c: lexer.l
